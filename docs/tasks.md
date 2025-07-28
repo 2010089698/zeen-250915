@@ -54,28 +54,28 @@
 ## Phase 3: 基盤実装（TDD実践）
 
 ### 3.1 型定義（テストファースト）
-- [ ] **Red**: `src/types/index.ts` のテスト作成
-  - [ ] FocusState interface テスト
-  - [ ] FocusAction type テスト
-  - [ ] FocusContextType interface テスト
-- [ ] **Green**: 最小限の型定義実装
+- [x] **Red**: `src/types/index.ts` のテスト作成
+  - [x] FocusState interface テスト
+  - [x] FocusAction type テスト
+  - [x] FocusContextType interface テスト
+- [x] **Green**: 最小限の型定義実装
 - [ ] **Refactor**: 型定義の改善
 
 ### 3.2 ビジネスロジック（TDD実践）
-- [ ] **Red**: `src/models/Timer.ts` のテスト作成
-  - [ ] 25分固定タイマー機能のテスト
-  - [ ] 時間フォーマット関数のテスト
-  - [ ] タイマー状態管理のテスト
-- [ ] **Green**: 最小限のタイマーロジック実装
+- [x] **Red**: `src/models/Timer.ts` のテスト作成
+  - [x] 25分固定タイマー機能のテスト
+  - [x] 時間フォーマット関数のテスト
+  - [x] タイマー状態管理のテスト
+- [x] **Green**: 最小限のタイマーロジック実装
 - [ ] **Refactor**: タイマーロジックの改善
 
 ### 3.3 カスタムフック（TDD実践）
-- [ ] **Red**: `src/hooks/useTimer.ts` のテスト作成
-  - [ ] 開始機能のテスト
-  - [ ] リセット機能のテスト
-  - [ ] カウントダウン機能のテスト
-  - [ ] 完了検知機能のテスト
-- [ ] **Green**: 最小限のuseTimer実装
+- [x] **Red**: `src/hooks/useTimer.ts` のテスト作成
+  - [x] 開始機能のテスト
+  - [x] リセット機能のテスト
+  - [x] カウントダウン機能のテスト
+  - [x] 完了検知機能のテスト
+- [x] **Green**: 最小限のuseTimer実装
 - [ ] **Refactor**: useTimerの改善
 - [ ] **Red**: `src/hooks/useFocusSession.ts` のテスト作成
   - [ ] セッション開始のテスト
