@@ -12,6 +12,7 @@ import { ZenColors } from '../styles/colors';
 import { BreathingView } from './animations/BreathingView';
 import { FadeTransition } from './animations/FadeTransition';
 import { PressableScale } from './animations/PressableScale';
+import { MeditationAura } from './animations/MeditationAura';
 import { formatTimeForAccessibility, announceFocusReset } from '../utils/accessibility';
 import { platformSelect } from '../utils/platform';
 
@@ -39,6 +40,9 @@ export const FocusScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container} testID="focus-screen-container">
+        {/* 瞑想オーラ - 背景レイヤー */}
+        <MeditationAura enabled={state.isActive} />
+        
         {/* ヘッダー部分 - 戻るボタン（左上に控えめに配置） */}
         <View style={styles.header}>
           <PressableScale 
@@ -104,10 +108,10 @@ export const FocusScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  // セーフエリア全体 - 和紙の背景
+  // セーフエリア全体 - 深い瞑想の背景
   safeArea: {
     flex: 1,
-    backgroundColor: ZenColors.background.primary, // 和紙 - 純粋と静寂
+    backgroundColor: ZenColors.background.focus, // 深い瞑想 - 集中時の暗い環境
   },
   
   // メインコンテナ
@@ -132,10 +136,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   
-  // 戻るアイコン - 墨色で軽やか
+  // 戻るアイコン - 月光色で軽やか
   backIcon: {
     fontSize: 28,
-    color: ZenColors.text.primary, // 墨 - 深い思考
+    color: ZenColors.text.focus, // 月光 - 暗闇での可読性
     fontWeight: '200', // ExtraLight
     letterSpacing: 1,
   },
@@ -214,7 +218,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '200', // ExtraLight
-    color: ZenColors.text.primary, // 墨 - 深い思考
+    color: ZenColors.text.focus, // 月光 - 暗闇での可読性
     textAlign: 'center',
     letterSpacing: 1.5,
     marginBottom: ZenSpacing.XXLarge + ZenSpacing.Medium, // XXLarge+ の余白で瞑想的な間隔
@@ -231,7 +235,7 @@ const styles = StyleSheet.create({
   timer: {
     fontSize: 64, // より大きく瞑想的に
     fontWeight: '100', // UltraLight
-    color: ZenColors.text.primary, // 墨 - 深い思考
+    color: ZenColors.text.focus, // 月光 - 暗闇での可読性
     textAlign: 'center',
     letterSpacing: 4, // より広い文字間隔で呼吸感
     lineHeight: 72,
@@ -241,10 +245,11 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     fontWeight: '300', // Light
-    color: ZenColors.text.secondary, // 石色 - 落ち着き
+    color: ZenColors.text.focus, // 月光 - 暗闇での可読性
     textAlign: 'center',
     letterSpacing: 0.5,
     lineHeight: 20,
     marginTop: ZenSpacing.XXLarge - ZenSpacing.Small, // 大きな余白で静寂感
+    opacity: 0.8, // 少し控えめに
   },
 });
