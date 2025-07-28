@@ -6,6 +6,7 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { useFocusContext } from '../context/FocusContext';
+import { handleAppStateError } from '../utils/errorHandler';
 
 /**
  * アプリ状態管理カスタムフック
@@ -48,9 +49,7 @@ export const useAppStateManager = () => {
       subscription = AppState.addEventListener('change', handleAppStateChange);
     } catch (error) {
       // エラーが発生してもアプリがクラッシュしないようにする
-      if (__DEV__) {
-        console.warn('AppState listener setup failed:', error);
-      }
+      handleAppStateError('AppState listener setup failed', error as Error);
     }
 
     // クリーンアップ関数でリスナーを削除
@@ -59,9 +58,7 @@ export const useAppStateManager = () => {
         subscription?.remove();
       } catch (error) {
         // クリーンアップエラーも安全に処理
-        if (__DEV__) {
-          console.warn('AppState listener cleanup failed:', error);
-        }
+        handleAppStateError('AppState listener cleanup failed', error as Error);
       }
     };
   }, [handleAppStateChange]);

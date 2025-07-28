@@ -7,6 +7,7 @@ import React, { createContext, useContext, ReactNode, useMemo, useCallback } fro
 import { FocusContextType } from '../types';
 import { useTimer } from '../hooks/useTimer';
 import { FOCUS_DURATION_SECONDS } from '../models/Timer';
+import { handleContextError } from '../utils/errorHandler';
 
 // Context作成
 const FocusContext = createContext<FocusContextType | undefined>(undefined);
@@ -25,18 +26,33 @@ export const FocusProvider: React.FC<FocusProviderProps> = ({
   const { timeRemaining, isActive, start, reset, tick } = useTimer(duration);
 
   const startFocus = useCallback(() => {
-    if (!isActive) {
-      start();
+    try {
+      if (!isActive) {
+        start();
+      }
+    } catch (error) {
+      // フォーカス開始エラーを処理
+      handleContextError('Focus start failed', error as Error, { isActive });
     }
   }, [start, isActive]);
 
   const resetFocus = useCallback(() => {
-    reset();
+    try {
+      reset();
+    } catch (error) {
+      // フォーカスリセットエラーを処理
+      handleContextError('Focus reset failed', error as Error, { timeRemaining });
+    }
   }, [reset]);
 
   const updateTimer = useCallback(() => {
-    if (isActive) {
-      tick();
+    try {
+      if (isActive) {
+        tick();
+      }
+    } catch (error) {
+      // タイマー更新エラーを処理
+      handleContextError('Timer update failed', error as Error, { isActive, timeRemaining });
     }
   }, [tick, isActive]);
 

@@ -8,18 +8,17 @@ import { View, StyleSheet } from 'react-native';
 import { useFocusContext } from './context/FocusContext';
 import { MainScreen } from './components/MainScreen';
 import { FocusScreen } from './components/FocusScreen';
+import { handleNavigationError } from './utils/errorHandler';
 
 export const AppNavigation: React.FC = () => {
   const { state } = useFocusContext();
 
   // 画面遷移のエラーハンドリング
-  const handleNavigationError = useCallback((error: Error) => {
-    console.warn('Navigation error:', error.message);
-    // 開発環境でのみエラーログを出力
-    if (__DEV__) {
-      console.error('Navigation error details:', error);
-    }
-  }, []);
+  const handleNavigationErrorCallback = useCallback((error: Error) => {
+    handleNavigationError('Navigation error occurred', error, { 
+      currentState: state.isActive ? 'focus' : 'main' 
+    });
+  }, [state.isActive]);
 
   // 現在の画面を決定（エラーハンドリング付き）
   const currentScreen = useMemo(() => {
@@ -30,11 +29,11 @@ export const AppNavigation: React.FC = () => {
       }
       return <MainScreen />;
     } catch (error) {
-      handleNavigationError(error as Error);
+      handleNavigationErrorCallback(error as Error);
       // フォールバック：常にメイン画面を表示
       return <MainScreen />;
     }
-  }, [state.isActive, handleNavigationError]);
+  }, [state.isActive, handleNavigationErrorCallback]);
 
   return (
     <View style={styles.container}>

@@ -5,6 +5,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { FOCUS_DURATION_SECONDS, calculateNextTime, isTimerComplete } from '../models/Timer';
+import { handleTimerError } from '../utils/errorHandler';
 
 export interface UseTimerReturn {
   timeRemaining: number;
@@ -78,20 +79,37 @@ export const useTimer = (initialTime: number = FOCUS_DURATION_SECONDS): UseTimer
   useEffect(() => {
     if (!isActive) {
       // 非アクティブ時はインターバルクリーンアップ
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      try {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      } catch (error) {
+        // クリーンアップエラーを安全に処理
+        handleTimerError('Timer cleanup failed', error as Error, { isActive: false });
       }
       return;
     }
 
     // アクティブ時はインターバル開始
-    intervalRef.current = setInterval(tick, 1000);
+    try {
+      intervalRef.current = setInterval(tick, 1000);
+    } catch (error) {
+      // setIntervalエラーを処理
+      handleTimerError('Timer setInterval failed', error as Error, { isActive: true });
+      // エラー時は手動でタイマーを非アクティブに
+      setIsActive(false);
+    }
     
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      try {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      } catch (error) {
+        // クリーンアップエラーを安全に処理
+        handleTimerError('Timer effect cleanup failed', error as Error, { isActive });
       }
     };
   }, [isActive, tick]);
@@ -99,9 +117,14 @@ export const useTimer = (initialTime: number = FOCUS_DURATION_SECONDS): UseTimer
   // コンポーネントアンマウント時のクリーンアップ
   useEffect(() => {
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      try {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      } catch (error) {
+        // アンマウント時のクリーンアップエラーを安全に処理
+        handleTimerError('Timer unmount cleanup failed', error as Error, { unmounting: true });
       }
     };
   }, []);
