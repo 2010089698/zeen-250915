@@ -113,28 +113,32 @@
   - [x] タイポグラフィ適用
 
 ### 4.2 集中画面（FocusScreen）- TDD実践
-- [ ] **Red**: `src/components/FocusScreen.test.tsx` 作成
-  - [ ] レンダリングテスト
-  - [ ] タイマー表示テスト
-  - [ ] 戻るボタンテスト
-  - [ ] スタイルテスト（スナップショット）
-- [ ] **Green**: `src/components/FocusScreen.tsx` 基本実装
-  - [ ] 基本構造実装
-  - [ ] タイマー表示機能
-  - [ ] 戻るボタン機能
-- [ ] **Refactor**: FocusScreenの改善
-  - [ ] 瞑想的デザインレイアウト実装
-  - [ ] タイマー表示（MM:SS形式）
-  - [ ] 最大限の余白による静寂感演出
-  - [ ] 52px UltraLight フォント適用
+- [x] **Red**: `src/components/FocusScreen.test.tsx` 作成
+  - [x] レンダリングテスト
+  - [x] タイマー表示テスト
+  - [x] 戻るボタンテスト
+  - [x] スタイルテスト（スナップショット）
+- [x] **Green**: `src/components/FocusScreen.tsx` 基本実装
+  - [x] 基本構造実装
+  - [x] タイマー表示機能
+  - [x] 戻るボタン機能
+- [x] **Refactor**: FocusScreenの改善
+  - [x] 瞑想的デザインレイアウト実装
+  - [x] タイマー表示（MM:SS形式）
+  - [x] 最大限の余白による静寂感演出
+  - [x] 64px UltraLight フォント適用
 
 ### 4.3 共通コンポーネント（TDD実践）
-- [ ] **Red**: 共通コンポーネントのテスト作成
-- [ ] **Green**: `src/components/common/` 基本実装
-- [ ] **Refactor**: 禅的UI要素スタイル
-  - [ ] 角を微妙に丸めたボタン
-  - [ ] 極薄ドロップシャドウ
-  - [ ] 緩やかなフェードアニメーション
+- [x] **Red**: 共通コンポーネントのテスト作成
+  - [x] ZenButtonテスト（17テストケース）
+  - [x] ZenTextテスト（23テストケース）
+- [x] **Green**: `src/components/common/` 基本実装
+  - [x] ZenButton（プライマリ/セカンダリバリアント、サイズ対応）
+  - [x] ZenText（タイトル/ボディ/キャプション/タイマーバリアント）
+- [x] **Refactor**: 禅的UI要素スタイル
+  - [x] 角を微妙に丸めたボタン（自然石効果）
+  - [x] 極薄ドロップシャドウ（雲の影効果）
+  - [x] 緩やかなプレスアニメーション（activeOpacity）
 
 ---
 
