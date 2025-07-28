@@ -59,7 +59,7 @@
   - [x] FocusAction type テスト
   - [x] FocusContextType interface テスト
 - [x] **Green**: 最小限の型定義実装
-- [ ] **Refactor**: 型定義の改善
+- [x] **Refactor**: 型定義の改善
 
 ### 3.2 ビジネスロジック（TDD実践）
 - [x] **Red**: `src/models/Timer.ts` のテスト作成
@@ -67,7 +67,7 @@
   - [x] 時間フォーマット関数のテスト
   - [x] タイマー状態管理のテスト
 - [x] **Green**: 最小限のタイマーロジック実装
-- [ ] **Refactor**: タイマーロジックの改善
+- [x] **Refactor**: タイマーロジックの改善
 
 ### 3.3 カスタムフック（TDD実践）
 - [x] **Red**: `src/hooks/useTimer.ts` のテスト作成
@@ -76,41 +76,41 @@
   - [x] カウントダウン機能のテスト
   - [x] 完了検知機能のテスト
 - [x] **Green**: 最小限のuseTimer実装
-- [ ] **Refactor**: useTimerの改善
-- [ ] **Red**: `src/hooks/useFocusSession.ts` のテスト作成
-  - [ ] セッション開始のテスト
-  - [ ] セッション完了のテスト
-  - [ ] セッションリセットのテスト
-- [ ] **Green**: 最小限のuseFocusSession実装
-- [ ] **Refactor**: useFocusSessionの改善
+- [x] **Refactor**: useTimerの改善
+- [x] **Red**: `src/hooks/useFocusSession.ts` のテスト作成
+  - [x] セッション開始のテスト
+  - [x] セッション完了のテスト
+  - [x] セッションリセットのテスト
+- [x] **Green**: 最小限のuseFocusSession実装
+- [x] **Refactor**: useFocusSessionの改善
 
 ### 3.4 状態管理（TDD実践）
-- [ ] **Red**: `src/context/FocusContext.tsx` のテスト作成
-  - [ ] FocusProviderのテスト
-  - [ ] useReducerロジックのテスト
-  - [ ] Context hooksのテスト
-- [ ] **Green**: 最小限のContext実装
-- [ ] **Refactor**: Contextの改善
+- [x] **Red**: `src/context/FocusContext.tsx` のテスト作成
+  - [x] FocusProviderのテスト
+  - [x] useReducerロジックのテスト
+  - [x] Context hooksのテスト
+- [x] **Green**: 最小限のContext実装
+- [x] **Refactor**: Contextの改善
 
 ---
 
 ## Phase 4: UI コンポーネント実装（TDD実践）
 
 ### 4.1 メイン画面（MainScreen）- TDD実践
-- [ ] **Red**: `src/components/MainScreen.test.tsx` 作成
-  - [ ] レンダリングテスト
-  - [ ] ボタンクリックテスト
-  - [ ] スタイルテスト（スナップショット）
-- [ ] **Green**: `src/components/MainScreen.tsx` 基本実装
-  - [ ] 基本構造実装
-  - [ ] Start Focusボタン機能
-- [ ] **Refactor**: MainScreenの改善
-  - [ ] 禅デザインに基づくレイアウト実装
-  - [ ] アプリタイトル「Zeen」配置
-  - [ ] 「Ready to focus」テキスト配置
-  - [ ] 十分な余白（間）の設定
-  - [ ] 禅カラーパレット適用
-  - [ ] タイポグラフィ適用
+- [x] **Red**: `src/components/MainScreen.test.tsx` 作成
+  - [x] レンダリングテスト
+  - [x] ボタンクリックテスト
+  - [x] スタイルテスト（スナップショット）
+- [x] **Green**: `src/components/MainScreen.tsx` 基本実装
+  - [x] 基本構造実装
+  - [x] Start Focusボタン機能
+- [x] **Refactor**: MainScreenの改善
+  - [x] 禅デザインに基づくレイアウト実装
+  - [x] アプリタイトル「Zeen」配置
+  - [x] 「Ready to focus」テキスト配置
+  - [x] 十分な余白（間）の設定
+  - [x] 禅カラーパレット適用
+  - [x] タイポグラフィ適用
 
 ### 4.2 集中画面（FocusScreen）- TDD実践
 - [ ] **Red**: `src/components/FocusScreen.test.tsx` 作成
