@@ -41,11 +41,13 @@
 ## Phase 2: テスト環境構築（TDD準備）
 
 ### 2.1 テストツールセットアップ
-- [ ] Jest セットアップ確認（React Native標準）
-- [ ] @testing-library/react-native インストール・設定
-- [ ] power-assert インストール・設定（t_wadaメソッド）
-- [ ] Jest Watch Mode 設定
-- [ ] テストファイル構造作成（__tests__/ ディレクトリ）
+- [x] Jest セットアップ確認（React Native標準）
+- [x] @testing-library/react-native インストール・設定
+- [x] power-assert インストール・設定（t_wadaメソッド）
+- [x] Jest Watch Mode 設定
+- [x] テストファイル構造作成（__tests__/ ディレクトリ）
+- [x] **Babel設定修正**（power-assert統合）
+- [x] **テスト環境動作確認**（基本テスト実行）
 
 ---
 
