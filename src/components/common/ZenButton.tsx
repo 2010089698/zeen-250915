@@ -4,7 +4,10 @@
  */
 
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Text, StyleSheet, ViewStyle } from 'react-native';
+import { ZenSpacing } from '../../styles/spacing';
+import { ZenColors } from '../../styles/colors';
+import { PressableScale } from '../animations/PressableScale';
 
 interface ZenButtonProps {
   title: string;
@@ -27,23 +30,28 @@ export const ZenButton: React.FC<ZenButtonProps> = ({
   size = 'medium',
   style
 }) => {
-  const buttonStyle = [
+  const variantStyle = variant === 'primary' ? styles.primary : styles.secondary;
+  const sizeStyle = size === 'small' ? styles.size_small : size === 'large' ? styles.size_large : styles.size_medium;
+  const textVariantStyle = variant === 'primary' ? styles.text_primary : styles.text_secondary;
+  const textSizeStyle = size === 'small' ? styles.textSize_small : size === 'large' ? styles.textSize_large : styles.textSize_medium;
+
+  const buttonStyle = StyleSheet.flatten([
     styles.base,
-    styles[variant],
-    styles[`size_${size}`],
+    variantStyle,
+    sizeStyle,
     disabled && styles.disabled,
     style
-  ];
+  ]);
 
   const textStyle = [
     styles.text,
-    styles[`text_${variant}`],
-    styles[`textSize_${size}`],
+    textVariantStyle,
+    textSizeStyle,
     disabled && styles.textDisabled
   ];
 
   return (
-    <TouchableOpacity
+    <PressableScale
       style={buttonStyle}
       onPress={onPress}
       disabled={disabled}
@@ -51,10 +59,11 @@ export const ZenButton: React.FC<ZenButtonProps> = ({
       accessible={true}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel || title}
-      activeOpacity={0.85}
+      scaleValue={0.95} // 禅的な控えめなスケール
+      duration={120}    // やや長めのアニメーション
     >
       <Text style={textStyle}>{title}</Text>
-    </TouchableOpacity>
+    </PressableScale>
   );
 };
 
@@ -64,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 12, // 自然石をイメージした角丸
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#2c2c2c',
+    shadowColor: ZenColors.text.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -76,31 +85,31 @@ const styles = StyleSheet.create({
 
   // バリアント
   primary: {
-    backgroundColor: '#65856e', // 竹緑 - 静寂と成長
+    backgroundColor: ZenColors.primary.main, // 竹緑 - 静寂と成長
   },
 
   secondary: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#65856e',
+    borderColor: ZenColors.primary.main,
   },
 
   // サイズ
   size_small: {
     paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingHorizontal: ZenSpacing.Large,
     minWidth: 120,
   },
 
   size_medium: {
-    paddingVertical: 16,
+    paddingVertical: ZenSpacing.Medium,
     paddingHorizontal: 32,
     minWidth: 160,
   },
 
   size_large: {
     paddingVertical: 20,
-    paddingHorizontal: 40,
+    paddingHorizontal: ZenSpacing.XLarge,
     minWidth: 200,
   },
 
@@ -119,11 +128,11 @@ const styles = StyleSheet.create({
   },
 
   text_primary: {
-    color: '#faf9f6', // 和紙色
+    color: ZenColors.text.inverse, // 和紙色
   },
 
   text_secondary: {
-    color: '#65856e', // 竹緑
+    color: ZenColors.primary.main, // 竹緑
   },
 
   textSize_small: {

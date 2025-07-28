@@ -4,46 +4,70 @@
  */
 
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useFocusContext } from '../context/FocusContext';
+import { ZenSpacing } from '../styles/spacing';
+import { ZenColors } from '../styles/colors';
+import { BreathingView } from './animations/BreathingView';
+import { FadeTransition } from './animations/FadeTransition';
+import { PressableScale } from './animations/PressableScale';
+import { announceFocusStart } from '../utils/accessibility';
+import { platformSelect } from '../utils/platform';
 
 export const MainScreen: React.FC = () => {
-  const { startFocus } = useFocusContext();
+  const { state, startFocus } = useFocusContext();
+
+  // アクセシビリティ：フォーカス開始時のアナウンス
+  const handleStartFocus = () => {
+    announceFocusStart();
+    startFocus();
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container} testID="main-screen-container">
-        {/* 上部の瞑想的余白 */}
-        <View style={styles.topSpacer} />
-        
-        {/* アプリタイトル - 禅の精神を表現 */}
-        <Text style={styles.title}>Zeen</Text>
-        
-        {/* 中央の深い呼吸のような余白 */}
-        <View style={styles.centerSpacer} />
-        
-        {/* スタートボタン - 自然石をイメージした形状 */}
-        <TouchableOpacity 
-          style={[styles.startButton, styles.buttonShadow]} 
-          onPress={startFocus}
-          testID="start-focus-button"
-          accessible={true}
-          accessibilityRole="button"
-          accessibilityLabel="Start 25-minute focus session"
-          activeOpacity={0.85}
-        >
-          <Text style={styles.buttonText}>Start Focus</Text>
-        </TouchableOpacity>
-        
-        {/* 導きのメッセージとの間隔 */}
-        <View style={styles.messageSpacer} />
-        
-        {/* 静かな導きのメッセージ */}
-        <Text style={styles.description}>Ready to focus</Text>
-        
-        {/* 下部の余白で静寂感を演出 */}
-        <View style={styles.bottomSpacer} />
-      </View>
+      <FadeTransition visible={!state.isActive} duration={600}>
+        <View style={styles.container} testID="main-screen-container">
+          {/* 上部の瞑想的余白 - プラットフォーム別制御 */}
+          <View style={styles.topSpacer} />
+          
+          {/* メインコンテンツエリア */}
+          <View style={styles.contentArea}>
+            {/* アプリタイトル - 禅の精神を表現 */}
+            <BreathingView duration={10000} minOpacity={0.9}>
+              <Text style={styles.title}>Zeen</Text>
+            </BreathingView>
+            
+            {/* 中央の深い呼吸のような余白 */}
+            <View style={styles.centerSpacer} />
+            
+            {/* スタートボタン - 自然石をイメージした形状 */}
+            <PressableScale 
+              style={StyleSheet.flatten([styles.startButton, styles.buttonShadow])} 
+              onPress={handleStartFocus}
+              testID="start-focus-button"
+              accessible={true}
+              accessibilityRole="button"
+              accessibilityLabel="Start 25-minute focus session"
+              accessibilityHint="Double tap to begin a 25-minute focused work session"
+              scaleValue={0.94} // メインボタンはより目立つエフェクト
+              duration={150}    // やや長めのアニメーション
+            >
+              <Text style={styles.buttonText}>Start Focus</Text>
+            </PressableScale>
+            
+            {/* 導きのメッセージとの間隔 */}
+            <View style={styles.messageSpacer} />
+            
+            {/* 静かな導きのメッセージ */}
+            <BreathingView duration={12000} minOpacity={0.85}>
+              <Text style={styles.description}>Ready to focus</Text>
+            </BreathingView>
+          </View>
+          
+          {/* 下部の余白で静寂感を演出 */}
+          <View style={styles.bottomSpacer} />
+        </View>
+      </FadeTransition>
     </SafeAreaView>
   );
 };
@@ -52,48 +76,113 @@ const styles = StyleSheet.create({
   // セーフエリア全体の設定
   safeArea: {
     flex: 1,
-    backgroundColor: '#faf9f6', // 和紙 - 純粋と静寂
+    backgroundColor: ZenColors.background.primary, // 和紙 - 純粋と静寂
   },
   
-  // メインコンテナ - 禅庭園の美学
-  container: {
-    flex: 1,
+  // メインコンテナ - プラットフォーム別レイアウト
+  container: platformSelect({
+    web: {
+      // Web: padding/margin ベースのレイアウト
+      minHeight: '100vh',
+      alignItems: 'center',
+      paddingHorizontal: ZenSpacing.XLarge,
+      paddingTop: ZenSpacing.MeditativeTop,
+      paddingBottom: ZenSpacing.BottomSerenity,
+      justifyContent: 'center',
+    },
+    expoGo: {
+      // Expo Go: 調整済みフレックスレイアウト
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: ZenSpacing.XLarge,
+      justifyContent: 'center',
+    },
+    native: {
+      // Native: 標準フレックスレイアウト
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: ZenSpacing.XLarge,
+    },
+    default: {
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: ZenSpacing.XLarge,
+      justifyContent: 'center',
+    },
+  }),
+  
+  // 瞑想的な余白配置（プラットフォーム別対応）
+  topSpacer: platformSelect({
+    web: {
+      height: 0, // Web では padding で制御
+    },
+    expoGo: {
+      flex: ZenSpacing.MeditativeTop, // 調整済み比率
+    },
+    native: {
+      flex: ZenSpacing.MeditativeTop,
+    },
+    default: {
+      flex: ZenSpacing.MeditativeTop,
+    },
+  }),
+  
+  centerSpacer: platformSelect({
+    web: {
+      height: ZenSpacing.CenterBreath, // Web では固定高さ
+    },
+    expoGo: {
+      height: ZenSpacing.Large, // Expo Go では固定高さに変更
+    },
+    native: {
+      flex: ZenSpacing.CenterBreath,
+    },
+    default: {
+      height: ZenSpacing.Large,
+    },
+  }),
+  
+  // メインコンテンツエリア - 表示確保
+  contentArea: {
     alignItems: 'center',
-    paddingHorizontal: 40, // 左右の余白
+    justifyContent: 'center',
+    minHeight: 300, // コンテンツの最小表示領域を確保
   },
-  
-  // 瞑想的な余白配置（黄金比ベース）
-  topSpacer: {
-    flex: 2, // 上部の大きな余白で「間」を表現
-  },
-  
-  centerSpacer: {
-    flex: 1.618, // 黄金比による自然な間隔
-  },
-  
+
   messageSpacer: {
-    height: 40, // XLarge - 深い呼吸のような間隔
+    height: ZenSpacing.XLarge, // 全プラットフォーム共通
   },
   
-  bottomSpacer: {
-    flex: 1, // 下部余白で静寂感
-  },
+  bottomSpacer: platformSelect({
+    web: {
+      height: 0, // Web では padding で制御
+    },
+    expoGo: {
+      flex: ZenSpacing.BottomSerenity, // 調整済み比率
+    },
+    native: {
+      flex: ZenSpacing.BottomSerenity,
+    },
+    default: {
+      flex: ZenSpacing.BottomSerenity,
+    },
+  }),
   
   // アプリタイトル - 禅の精神を表現
   title: {
     fontSize: 28,
     fontWeight: '100', // UltraLight - より軽やかに
-    color: '#2c2c2c', // 墨 - 深い思考
+    color: ZenColors.text.primary, // 墨 - 深い思考
     letterSpacing: 2, // 文字間隔で呼吸感を演出
     textAlign: 'center',
   },
   
   // スタートボタン - 自然石をイメージ
   startButton: {
-    backgroundColor: '#65856e', // 竹緑 - 静寂と成長
+    backgroundColor: ZenColors.primary.main, // 竹緑 - 静寂と成長
     borderRadius: 12, // より自然な丸み
     paddingVertical: 18,
-    paddingHorizontal: 40,
+    paddingHorizontal: ZenSpacing.XLarge,
     minWidth: 160, // 最小幅でバランス確保
     alignItems: 'center',
     justifyContent: 'center',
@@ -101,7 +190,7 @@ const styles = StyleSheet.create({
   
   // 極薄のドロップシャドウ（雲の影のような軽やかさ）
   buttonShadow: {
-    shadowColor: '#2c2c2c',
+    shadowColor: ZenColors.text.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -115,7 +204,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: '300', // Light
-    color: '#faf9f6', // 和紙色
+    color: ZenColors.text.inverse, // 和紙色
     textAlign: 'center',
     letterSpacing: 0.5,
   },
@@ -124,7 +213,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     fontWeight: '300', // Light
-    color: '#8b8680', // 石色 - 落ち着き
+    color: ZenColors.text.secondary, // 石色 - 落ち着き
     textAlign: 'center',
     letterSpacing: 0.3,
     lineHeight: 20,

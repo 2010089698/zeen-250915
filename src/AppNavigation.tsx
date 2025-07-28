@@ -3,15 +3,32 @@
  * Phase 5.1: Refactor - 改善された画面遷移とエラーハンドリング
  */
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useFocusContext } from './context/FocusContext';
 import { MainScreen } from './components/MainScreen';
 import { FocusScreen } from './components/FocusScreen';
 import { handleNavigationError } from './utils/errorHandler';
+import { debugPlatformInfo } from './utils/platform';
 
 export const AppNavigation: React.FC = () => {
   const { state } = useFocusContext();
+
+  // アプリ起動時にプラットフォーム情報をデバッグ出力
+  useEffect(() => {
+    if (__DEV__) {
+      console.log('🚀 AppNavigation: Component mounted');
+      debugPlatformInfo();
+      console.log(`📱 Current screen state: ${state.isActive ? 'Focus' : 'Main'}`);
+    }
+  }, []);
+
+  // 画面遷移時のログ出力
+  useEffect(() => {
+    if (__DEV__) {
+      console.log(`🔄 Screen transition: ${state.isActive ? 'Main → Focus' : 'Focus → Main'}`);
+    }
+  }, [state.isActive]);
 
   // 画面遷移のエラーハンドリング
   const handleNavigationErrorCallback = useCallback((error: Error) => {

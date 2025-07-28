@@ -5,6 +5,8 @@
 
 import React from 'react';
 import { Text, StyleSheet, TextStyle } from 'react-native';
+import { ZenColors } from '../../styles/colors';
+import { ZenTypography, getTypographyStyle, getFontWeight } from '../../styles/typography';
 
 interface ZenTextProps {
   children: React.ReactNode;
@@ -13,7 +15,7 @@ interface ZenTextProps {
   align?: 'left' | 'center' | 'right';
   testID?: string;
   accessibilityLabel?: string;
-  accessibilityRole?: string;
+  accessibilityRole?: 'text' | 'header' | 'none';
   style?: TextStyle;
 }
 
@@ -56,42 +58,36 @@ const styles = StyleSheet.create({
 
   // バリアント
   title: {
-    fontSize: 28,
-    fontWeight: '100', // UltraLight
-    letterSpacing: 2,
-    lineHeight: 36,
+    ...getTypographyStyle('title'),
+    fontWeight: getFontWeight('ultraLight'),
   },
 
   body: {
-    fontSize: 16,
-    fontWeight: '300', // Light
-    lineHeight: 24,
+    ...getTypographyStyle('body'),
+    fontWeight: getFontWeight('light'),
   },
 
   caption: {
-    fontSize: 14,
-    fontWeight: '300', // Light
-    lineHeight: 20,
+    ...getTypographyStyle('caption'),
+    fontWeight: getFontWeight('light'),
   },
 
   timer: {
-    fontSize: 64,
-    fontWeight: '100', // UltraLight
-    letterSpacing: 4, // より広い文字間隔
-    lineHeight: 72,
+    ...getTypographyStyle('timer'),
+    fontWeight: getFontWeight('ultraLight'),
   },
 
   // カラー
   color_primary: {
-    color: '#2c2c2c', // 墨 - 深い思考
+    color: ZenColors.text.primary, // 墨 - 深い思考
   },
 
   color_secondary: {
-    color: '#65856e', // 竹緑 - 静寂と成長
+    color: ZenColors.primary.main, // 竹緑 - 静寂と成長
   },
 
   color_muted: {
-    color: '#8b8680', // 石色 - 落ち着き
+    color: ZenColors.text.secondary, // 石色 - 落ち着き
   },
 
   // アライメント
