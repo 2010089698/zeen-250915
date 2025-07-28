@@ -13,24 +13,28 @@
 ## Phase 1: プロジェクトセットアップ
 
 ### 1.1 プロジェクト初期化（Expo使用）
-- [ ] Expo CLI インストール（`npm install -g @expo/cli`）
-- [ ] Expo プロジェクト作成（`npx create-expo-app --template`）
-- [ ] TypeScript設定（Expo TypeScript テンプレート使用）
-- [ ] ESLint/Prettier設定
-- [ ] フォルダ構成作成（src/, components/, hooks/, context/, models/, types/）
-- [ ] package.json設定（依存関係追加）
-- [ ] app.json設定（Expo設定ファイル）
+- [x] Expo CLI インストール（`npm install -g @expo/cli`）
+- [x] Expo プロジェクト作成（`npx create-expo-app --template`）
+- [x] TypeScript設定（Expo TypeScript テンプレート使用）
+- [x] ESLint/Prettier設定
+- [x] フォルダ構成作成（src/, components/, hooks/, context/, models/, types/）
+- [x] package.json設定（依存関係追加）
+- [x] app.json設定（Expo設定ファイル）
+- [x] **Expo Router導入**（ファイルベースルーティング）
+- [x] **Expo SDK 53アップグレード**（React 19 + RN 0.79.5対応）
 
 ### 1.2 必要ライブラリのインストール（Expo対応）
-- [ ] Expo SDK インストール
-- [ ] React Context API（標準）
-- [ ] React Native Reanimated（Expo対応版）
-- [ ] 開発用ツール（Expo Dev Tools、Flipper等）
-- [ ] テスト環境セットアップ
-  - [ ] Jest セットアップ（React Native標準）
-  - [ ] @testing-library/react-native インストール
-  - [ ] power-assert インストール（t_wadaメソッド）
-  - [ ] Jest Watch Mode 設定
+- [x] Expo SDK 53 インストール
+- [x] React Context API（標準）
+- [x] React Native Reanimated v3.17.4（Expo対応版）
+- [x] Expo Router v5.1.4（ファイルベースルーティング）
+- [x] 開発用ツール（Expo Dev Tools、ngrok等）
+- [x] テスト環境セットアップ
+  - [x] Jest セットアップ（React Native標準）
+  - [x] @testing-library/react-native インストール
+  - [x] power-assert インストール（t_wadaメソッド）
+  - [x] Jest Watch Mode 設定
+  - [x] **Jest Expo v53対応**
 
 ---
 

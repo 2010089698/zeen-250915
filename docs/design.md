@@ -5,18 +5,30 @@
 ### 1.1 技術スタック選定
 
 #### 1.1.1 フレームワーク
-**React Native with Expo**を採用
+**React Native with Expo SDK 53 + Expo Router + TypeScript**を採用
 - **選定理由**:
   - iOS/Android両対応でコード共有率が高い
   - 豊富なライブラリエコシステム
   - タイマー機能に必要なバックグラウンド処理サポート
   - 開発・デバッグツールが充実
   - Expoによる開発効率化とクロスプラットフォーム対応
+  - TypeScriptによる型安全性とコード品質向上
+  - **Expo Router**による宣言的ナビゲーション管理
+  - **Expo SDK 53**の最新機能活用（New Architecture、React 19対応）
 
 #### 1.1.2 主要ライブラリ
+- **ナビゲーション**: Expo Router v5.1.4（ファイルベースルーティング）
 - **状態管理**: React Context API + useReducer
 - **UI**: React Native標準コンポーネント
-- **アニメーション**: React Native Reanimated（必要最小限）
+- **アニメーション**: React Native Reanimated v3.17.4（必要最小限）
+- **開発環境**: React 19.0.0 + React Native 0.79.5
+
+#### 1.1.3 Expo Router導入の技術的メリット
+- **ファイルベースルーティング**: `app/`ディレクトリ構造による直感的なナビゲーション
+- **静的型安全性**: TypeScriptとの統合によるルート型推論
+- **New Architecture対応**: Expo SDK 53の新アーキテクチャ完全対応
+- **Web対応**: 同一コードベースでのWeb展開可能性
+- **深いリンク対応**: URLベースナビゲーションの簡易実装
 
 ### 1.2 アーキテクチャパターン
 
@@ -31,23 +43,38 @@ Model (Timer Logic + State)
 
 ### 1.3 アプリケーション構成
 
+#### 1.3.1 Expo Router構成（現在の実装）
 ```
-src/
-├── components/         # UI コンポーネント
-│   ├── MainScreen.tsx
-│   ├── FocusScreen.tsx
-│   └── common/
-├── hooks/              # カスタムフック
+app/                    # Expo Routerエントリーポイント
+├── _layout.tsx        # ルートレイアウト
+└── index.tsx          # メイン画面（/）
+
+src/                   # アプリケーションロジック
+├── components/        # UI コンポーネント
+│   ├── MainScreen.tsx # メイン画面コンポーネント
+│   └── common/        # 共通コンポーネント
+├── hooks/             # カスタムフック
 │   ├── useTimer.ts
 │   └── useFocusSession.ts
-├── context/            # 状態管理
+├── context/           # 状態管理
 │   └── FocusContext.tsx
-├── models/             # ビジネスロジック
+├── models/            # ビジネスロジック
 │   └── Timer.ts
-├── types/              # 型定義
-│   └── index.ts
-└── App.tsx
+└── types/             # 型定義
+    └── index.ts
+
+assets/                # 静的リソース
+├── icon.png
+├── splash.png
+├── favicon.png
+└── adaptive-icon.png
 ```
+
+#### 1.3.2 Expo Routerナビゲーション設計
+- **エントリーポイント**: `expo-router/entry`（package.json main）
+- **ルートレイアウト**: `app/_layout.tsx`（Stack Navigator）
+- **メイン画面**: `app/index.tsx`（MainScreenコンポーネント使用）
+- **将来の拡張**: `app/focus.tsx`（集中画面の独立ルート）
 
 ## 2. UI/UX設計
 
