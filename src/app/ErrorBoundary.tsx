@@ -90,3 +90,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+// デフォルトエクスポートを追加
+export default ErrorBoundary;

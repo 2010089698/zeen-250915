@@ -87,3 +87,6 @@ export const getColor = (path: ColorPath): string => {
   
   return value;
 };
+
+// デフォルトエクスポートを追加
+export default ZenColors;

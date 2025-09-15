@@ -1,8 +1,3 @@
-/**
- * AppNavigation コンポーネント
- * Phase 5.1: Refactor - 改善された画面遷移とエラーハンドリング
- */
-
 import React, { useCallback, useMemo, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useFocusContext } from '../features/context/FocusContext';
@@ -11,13 +6,13 @@ import { FocusScreen } from '../features/components/FocusScreen';
 import { handleNavigationError } from '../config/utils/errorHandler';
 import { debugPlatformInfo } from '../config/utils/platform';
 
-export const AppNavigation: React.FC = () => {
+export default function HomeScreen() {
   const { state } = useFocusContext();
 
   // アプリ起動時にプラットフォーム情報をデバッグ出力
   useEffect(() => {
     if (__DEV__) {
-      console.log('🚀 AppNavigation: Component mounted');
+      console.log('🚀 HomeScreen: Component mounted');
       debugPlatformInfo();
       console.log(`📱 Current screen state: ${state.isActive ? 'Focus' : 'Main'}`);
     }
@@ -57,7 +52,7 @@ export const AppNavigation: React.FC = () => {
       {currentScreen}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

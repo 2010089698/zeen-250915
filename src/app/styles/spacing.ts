@@ -81,3 +81,6 @@ export type SpacingKey = keyof typeof ZenSpacing;
 export const getSpacing = (key: SpacingKey): number => {
   return ZenSpacing[key];
 };
+
+// デフォルトエクスポートを追加
+export default ZenSpacing;
