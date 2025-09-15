@@ -11,7 +11,18 @@
     "moduleResolution": "bundler",
     "allowJs": false,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "app/*": ["app/*"],
+      "features/*": ["features/*"],
+      "domain/*": ["domain/*"],
+      "ports/*": ["ports/*"],
+      "infra/*": ["infra/*"],
+      "schema/*": ["schema/*"],
+      "config/*": ["config/*"],
+      "test/*": ["test/*"]
+    }
   },
   "include": [
     "**/*.ts",
